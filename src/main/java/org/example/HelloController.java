@@ -29,6 +29,8 @@ public class HelloController {
         content.setContent(name);
         repository.save(content);
 
+        //return "Thank you"
+
         // Fetch the saved content to display
         model.addAttribute("name", name);
         model.addAttribute("id", content.getId());
