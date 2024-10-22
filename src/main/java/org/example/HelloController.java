@@ -1,6 +1,8 @@
 package org.example;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,12 +15,31 @@ public class HelloController {
 
     @Autowired
     private EditorContentRepository repository;
+    @Autowired
+    private NewsletterRepository newsletterRepository;
 
     // Show the input form
     @GetMapping("/input")
     public String showInputForm() {
         return "input";
     }
+
+    // Gets Home Page Data
+    @GetMapping("/home")
+    public String getNewsletters(Model model) {
+        List<Newsletter> newsletters = newsletterRepository.findAll();
+        List<HomeElements> newsletterData =  newsletters.stream()
+                .map(newsletter -> new HomeElements(newsletter.getTitle(), newsletter.getYear(), newsletter.getStatus(), newsletter.getPublicationDate()))
+                .collect(Collectors.toList());
+
+        newsletterData.forEach(entry -> {
+            System.out.println(entry.getTitle() + " " + entry.getYear() + " " + entry.getStatus() + " " + entry.getPublicationDate());
+        });
+
+        model.addAttribute("newsletters", newsletterData);
+        return "display";
+    }
+
 
     // Handle form submission and save content
     @PostMapping("/display")
