@@ -37,7 +37,7 @@ public class HelloController {
         });
 
         model.addAttribute("newsletters", newsletterData);
-        return "display";
+        return "home";
     }
 
 
