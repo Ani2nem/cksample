@@ -21,9 +21,10 @@ public class Newsletter {
     private Integer quarter;
 
     @Temporal(TemporalType.DATE)
+    @Column(name = "publicationdate")
     private Date publicationDate;
 
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "updatedate", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date updatedAt;
 
     // Getters and Setters
